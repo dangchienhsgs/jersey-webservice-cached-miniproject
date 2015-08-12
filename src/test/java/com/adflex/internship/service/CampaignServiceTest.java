@@ -8,16 +8,14 @@ import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
+import org.bson.BSONObject;
+import org.bson.BasicBSONObject;
 import org.json.JSONObject;
 import org.junit.Test;
-import javax.print.attribute.standard.Media;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
+import javax.ws.rs.core.MediaType;
 import org.junit.Assert;
+
 /**
  * Created by dangchienhsgs on 12/08/2015.
  */
@@ -35,16 +33,43 @@ public class CampaignServiceTest extends JerseyTest {
     public void testInsertCampaign() {
         WebResource webResource = resource();
 
-        JSONObject jsonObject = new JSONObject()
+        BSONObject bsonObject = new BasicBSONObject()
                 .append(Campaign.APP_KEY, "appkey")
                 .append(Campaign.BUDGET, "Asdsa")
                 .append(Campaign.RETENTION_RATE, 13)
-                .append(Campaign.TOTAL_INSTALLED, 24);
+                .append(Campaign.TOTAL_INSTALLED, 24)
+                .append(Campaign.CAMPAIGN_ID, "1234");
+
 
         ClientResponse response = webResource.path("campaign/create")
                 .accept(MediaType.APPLICATION_JSON)
-                .post(ClientResponse.class, jsonObject.toString());
+                .post(ClientResponse.class, bsonObject.toString());
 
         Assert.assertEquals(response.getEntity(String.class), ResponseController.ResponseMessage.okMessage);
+        Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
     }
+
+    @Test
+    public void testListCampaign() {
+        WebResource webResource = resource();
+
+        ClientResponse response = webResource.path("campaign")
+                .accept(MediaType.APPLICATION_JSON)
+                .get(ClientResponse.class);
+
+        Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+    }
+
+    @Test
+    public void testListCampaignById() {
+        WebResource webResource = resource();
+        ClientResponse response = webResource.path("campaign")
+                .queryParam(Campaign.CAMPAIGN_ID, "1234")
+                .accept(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class);
+
+        System.out.println (response.getEntity(String.class));
+        Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+    }
+
 }
