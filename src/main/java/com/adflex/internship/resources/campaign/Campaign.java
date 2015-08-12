@@ -12,9 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by dangchienhsgs on 11/08/2015.
  */
 
-@XmlRootElement(name="Campaign")
-@XmlAccessorType(XmlAccessType.FIELD)
-
+@XmlRootElement
 public class Campaign {
     public static final String CAMPAIGN_ID ="campaign_id";
     public static final String APP_KEY = "app_key";
@@ -26,21 +24,20 @@ public class Campaign {
 
     }
 
-    @XmlElement(name="campaign_id")
+    //@XmlElement(name="campaign_id")
     public String campaignId;
 
-    @XmlElement(name="app_key")
+    //@XmlElement(name="app_key")
     public String appKey;
 
-    @XmlElement(name="budget")
+    //@XmlElement(name="budget")
     public String budget;
 
-    @XmlElement(name="total_installed")
+    //@XmlElement(name="total_installed")
     public int totalInstalled;
 
-    @XmlElement(name="retention_rate")
+    //@XmlElement(name="retention_rate")
     public float retention_rate;
-
 
     public String getCampaignId() {
         return campaignId;

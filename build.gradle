@@ -19,6 +19,8 @@ dependencies {
 
     compile 'com.sun.jersey:jersey-core:1.17.1'
     compile 'com.sun.jersey:jersey-server:1.17.1'
+    compile 'com.sun.jersey:jersey-json:1.17.1'
+    compile 'org.json:json:20140107'
     compile 'com.sun.jersey:jersey-servlet:1.17.1'
     compile 'org.mongodb:mongo-java-driver:3.0.3'
     compile 'net.sf.ehcache:ehcache:2.10.0'
