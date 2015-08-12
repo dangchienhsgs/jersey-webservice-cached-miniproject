@@ -1,9 +1,11 @@
 package com.adflex.internship.service;
 
-import com.adflex.internship.resources.campaign.Campaign;
-import jdk.nashorn.internal.parser.JSONParser;
+import com.adflex.internship.dao.MongoController;
+import com.adflex.internship.result.ResponseController;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
 import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,15 +17,15 @@ public class CampaignService {
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response insertCampaign(String sample) throws JSONException{
-        Campaign campaign = new Campaign();
-        campaign.setAppKey("1333");
-        campaign.setBudget("223");
+    public Response insertCampaign(String jsonString) throws JSONException{
+        Document document = Document.parse(jsonString);
 
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.append("as", "as");
+        MongoCollection campaignCollection = MongoController.AdFlex.CAMPAIGN_COLLECTION;
+        campaignCollection.insertOne(document);
 
-        return Response.ok().entity(sample).build();
+        return Response.status(ResponseController.ResponseCode.OK)
+                .entity(ResponseController.ResponseMessage.okMessage)
+                .build();
     }
 
     @GET
@@ -33,6 +35,16 @@ public class CampaignService {
         return null;
     }
 
+    @GET
+    @Path("/")
+    public Response getCampaignById() {
+        return null;
+    }
 
-
+    @DELETE
+    @Path("/")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteCampaign() {
+        return null;
+    }
 }

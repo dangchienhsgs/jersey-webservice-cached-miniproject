@@ -9,7 +9,7 @@ import org.bson.Document;
  * Created by dangchienhsgs on 12/08/2015.
  */
 public class MongoController {
-    public static MongoClient MONGO_CLIENT = new MongoClient(
+    private static MongoClient MONGO_CLIENT = new MongoClient(
             MongoConfiguration.MONGO_HOST,
             MongoConfiguration.MONGO_PORT
     );
