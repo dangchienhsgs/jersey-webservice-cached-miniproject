@@ -10,8 +10,8 @@ import com.mongodb.client.MongoCollection;
 import static com.mongodb.client.model.Filters.*;
 
 import org.bson.Document;
-import org.codehaus.jettison.json.JSONException;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -21,16 +21,17 @@ import javax.ws.rs.core.Response;
 public class CampaignService {
     private CacheHandler cacheHandler;
 
+    public CampaignService() {
+        this.cacheHandler = CacheHandler.getInstance();
+    }
+
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public Response insertCampaign(String jsonString) throws JSONException {
         Document document = Document.parse(jsonString);
-
-        MongoCollection campaignCollection = MongoController.AdFlex.CAMPAIGN_COLLECTION;
-        campaignCollection.insertOne(document);
-
+        cacheHandler.insertDocument(document);
         return Response.status(ResponseController.ResponseCode.OK)
                 .entity(ResponseController.ResponseMessage.okMessage)
                 .build();
@@ -40,12 +41,7 @@ public class CampaignService {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCampaign() {
-        MongoCollection<Document> campaignCollection = MongoController.AdFlex.CAMPAIGN_COLLECTION;
-        JSONArray jsonArray = new JSONArray();
-        for (Document document : campaignCollection.find()) {
-            jsonArray.put(document);
-        }
-
+        JSONArray jsonArray = cacheHandler.getListCampaign();
         return Response.status(ResponseController.ResponseCode.OK)
                 .entity(jsonArray.toString())
                 .build();
@@ -55,17 +51,7 @@ public class CampaignService {
     @Path("{" + Campaign.CAMPAIGN_ID + "}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCampaignById(@PathParam(Campaign.CAMPAIGN_ID) String id) {
-        MongoCollection<Document> campaignCollection = MongoController.AdFlex.CAMPAIGN_COLLECTION;
-
-        JSONArray jsonArray = new JSONArray();
-        Block<Document> blockDocument = new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                jsonArray.put(document);
-            }
-        };
-
-        campaignCollection.find(eq(Campaign.CAMPAIGN_ID, id)).forEach(blockDocument);
+        JSONArray jsonArray = cacheHandler.getCampaignById(id);
 
         return Response.status(ResponseController.ResponseCode.OK)
                 .entity(jsonArray.toString() + " | " + id)

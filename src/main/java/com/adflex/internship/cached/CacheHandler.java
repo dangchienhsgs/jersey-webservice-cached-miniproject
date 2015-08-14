@@ -8,6 +8,7 @@ import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.json.JSONArray;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
@@ -18,13 +19,15 @@ public class CacheHandler {
     private static Map<String, Document> campaignList;   // id, document
     private static Map<Document, Integer> changesList;   // id, pair <document, status>
 
-    private CacheHandler cacheHandler;
+    private static CacheHandler cacheHandler = null;
 
     private CacheHandler() {
         // do nothing
+        campaignList = new HashMap<>();
+        changesList = new HashMap<>();
     }
 
-    public CacheHandler getInstance() {
+    public static CacheHandler getInstance() {
         if (cacheHandler == null) {
             cacheHandler = new CacheHandler();
             cacheHandler.reloadCampaignFromDB();

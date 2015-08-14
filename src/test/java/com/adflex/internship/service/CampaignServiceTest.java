@@ -55,6 +55,7 @@ public class CampaignServiceTest extends JerseyTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .get(ClientResponse.class);
 
+        System.out.println ("List campaign: " + response.getEntity(String.class));
         Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
     }
 
