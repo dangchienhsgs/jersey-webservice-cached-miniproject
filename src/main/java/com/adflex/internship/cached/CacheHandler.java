@@ -46,28 +46,32 @@ public class CacheHandler {
     }
 
     public void insertDocument(Document document) {
-        changesList.put(document.getString(Campaign.CAMPAIGN_ID), Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
+        String id = document.getString(Campaign.CAMPAIGN_ID);
 
-        campaignList.put(document.getString(Campaign.CAMPAIGN_ID), document);
-        changesList.put(document.getString(Campaign.CAMPAIGN_ID), Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
+        // add in cache
+        changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
+        campaignList.put(id, document);
+        changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
 
+        // add in database
         MongoController.AdFlex.CAMPAIGN_COLLECTION.insertOne(document);
-        changesList.remove(document.getString(Campaign.CAMPAIGN_ID));
+
+        // remove in changes cache
+        changesList.remove(id);
     }
 
     public JSONArray getListCampaign() {
         JSONArray jsonArray = new JSONArray();
-        for (Document document: campaignList.values()) {
+        for (Document document : campaignList.values()) {
             jsonArray.put(document);
         }
 
-        if (changesList.size() > 0) {
-            for (Map.Entry<String, Pair<Document, Integer>> entry: changesList.entrySet()) {
-                if (entry.getValue().getValue() == CacheConfiguration.CacheStatus.WAITING) {
-                    jsonArray.put(entry.getKey());
-                }
+
+        changesList.forEach((id, pair) -> {
+            if (pair.getValue() == CacheConfiguration.CacheStatus.WAITING) {
+                jsonArray.put(pair.getKey());
             }
-        }
+        });
 
         return jsonArray;
     }
