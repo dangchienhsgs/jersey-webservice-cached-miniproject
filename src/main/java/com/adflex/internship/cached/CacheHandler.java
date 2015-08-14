@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * Created by dangchienhsgs on 13/08/2015.
+ * In this design, each campaign has unique id
  */
 public class CacheHandler {
     private static Map<String, Document> campaignList;   // id, document
@@ -48,16 +49,12 @@ public class CacheHandler {
             document = CampaignUtils.validation(document);
             String id = document.getString(CampaignParameter.CAMPAIGN_ID.getValue());
 
-            // add in cache
             changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
             campaignList.put(id, document);
-
             changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
 
-            // add in database
             MongoController.AdFlex.CAMPAIGN_COLLECTION.insertOne(document);
 
-            // remove in changes cache
             changesList.remove(id);
 
             return true;
