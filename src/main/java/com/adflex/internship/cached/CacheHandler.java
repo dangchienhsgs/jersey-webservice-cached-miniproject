@@ -1,17 +1,14 @@
 package com.adflex.internship.cached;
 
-import com.adflex.internship.dao.MongoConfiguration;
 import com.adflex.internship.dao.MongoController;
 import com.adflex.internship.resources.Campaign;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.util.JSON;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.Document;
 import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Queue;
 
 /**
  * Created by dangchienhsgs on 13/08/2015.
@@ -65,7 +62,6 @@ public class CacheHandler {
         for (Document document : campaignList.values()) {
             jsonArray.put(document);
         }
-
 
         changesList.forEach((id, pair) -> {
             if (pair.getValue() == CacheConfiguration.CacheStatus.WAITING) {
