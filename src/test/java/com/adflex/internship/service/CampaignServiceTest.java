@@ -1,16 +1,14 @@
 package com.adflex.internship.service;
 
-import com.adflex.internship.resources.campaign.Campaign;
+import com.adflex.internship.resources.Campaign;
 import com.adflex.internship.result.ResponseController;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.core.ResourceConfig;
 import com.sun.jersey.test.framework.AppDescriptor;
 import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
-import org.json.JSONObject;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
@@ -38,7 +36,7 @@ public class CampaignServiceTest extends JerseyTest {
                 .append(Campaign.BUDGET, "Asdsa")
                 .append(Campaign.RETENTION_RATE, 13)
                 .append(Campaign.TOTAL_INSTALLED, 24)
-                .append(Campaign.CAMPAIGN_ID, "1234");
+                .append(Campaign.CAMPAIGN_ID, "12554");
 
 
         ClientResponse response = webResource.path("campaign/create")
@@ -63,8 +61,7 @@ public class CampaignServiceTest extends JerseyTest {
     @Test
     public void testListCampaignById() {
         WebResource webResource = resource();
-        ClientResponse response = webResource.path("campaign")
-                .queryParam(Campaign.CAMPAIGN_ID, "1234")
+        ClientResponse response = webResource.path("campaign/1234")
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class);
 

@@ -1,4 +1,4 @@
-package com.adflex.internship.resources.campaign;
+package com.adflex.internship.resources;
 
 import com.adflex.internship.model.Model;
 import javax.xml.bind.annotation.XmlElement;
