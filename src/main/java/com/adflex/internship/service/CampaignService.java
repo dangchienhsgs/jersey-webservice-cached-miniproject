@@ -1,7 +1,6 @@
 package com.adflex.internship.service;
 
 import com.adflex.internship.cached.CacheHandler;
-import com.adflex.internship.resources.Campaign;
 import com.adflex.internship.result.ResponseController;
 
 import org.bson.Document;
@@ -26,10 +25,17 @@ public class CampaignService {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response insertCampaign(String jsonString) throws JSONException {
         Document document = Document.parse(jsonString);
-        cacheHandler.insertDocument(document);
-        return Response.status(ResponseController.ResponseCode.OK)
-                .entity(ResponseController.ResponseMessage.okMessage)
-                .build();
+        Boolean result = cacheHandler.insertDocument(document);
+
+        if (result) {
+            return Response.status(ResponseController.ResponseCode.OK)
+                    .entity(ResponseController.ResponseMessage.okMessage)
+                    .build();
+        } else {
+            return Response.status(ResponseController.ResponseCode.BAD_REQUEST)
+                    .entity(ResponseController.ResponseMessage.badRequestMessage)
+                    .build();
+        }
     }
 
     @GET
@@ -43,9 +49,9 @@ public class CampaignService {
     }
 
     @GET
-    @Path("{" + Campaign.CAMPAIGN_ID + "}")
+    @Path("{campaignid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCampaignById(@PathParam(Campaign.CAMPAIGN_ID) String id) {
+    public Response getCampaignById(@PathParam("campaignid") String id) {
         JSONArray jsonArray = cacheHandler.getCampaignById(id);
 
         return Response.status(ResponseController.ResponseCode.OK)

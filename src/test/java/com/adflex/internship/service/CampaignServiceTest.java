@@ -1,6 +1,6 @@
 package com.adflex.internship.service;
 
-import com.adflex.internship.resources.Campaign;
+import com.adflex.internship.resources.CampaignParameter;
 import com.adflex.internship.result.ResponseController;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -32,11 +32,11 @@ public class CampaignServiceTest extends JerseyTest {
         WebResource webResource = resource();
 
         BSONObject bsonObject = new BasicBSONObject()
-                .append(Campaign.APP_KEY, "appkey")
-                .append(Campaign.BUDGET, "Asdsa")
-                .append(Campaign.RETENTION_RATE, 13)
-                .append(Campaign.TOTAL_INSTALLED, 24)
-                .append(Campaign.CAMPAIGN_ID, "12554");
+                .append(CampaignParameter.APP_KEY.getValue(), "appkey")
+                .append(CampaignParameter.BUDGET.getValue(), "Asdsa")
+                .append(CampaignParameter.RETENTION_RATE.getValue(), 13)
+                .append(CampaignParameter.TOTAL_INSTALLED.getValue(), 24)
+                .append(CampaignParameter.CAMPAIGN_ID.getValue(), "12554");
 
 
         ClientResponse response = webResource.path("campaign/create")

@@ -1,7 +1,8 @@
 package com.adflex.internship.cached;
 
 import com.adflex.internship.dao.MongoController;
-import com.adflex.internship.resources.Campaign;
+import com.adflex.internship.resources.CampaignParameter;
+import com.adflex.internship.resources.CampaignUtils;
 import com.mongodb.client.MongoCollection;
 import org.apache.commons.lang3.tuple.Pair;
 import org.bson.Document;
@@ -38,23 +39,31 @@ public class CacheHandler {
         MongoCollection<Document> campaignCollection = MongoController.AdFlex.CAMPAIGN_COLLECTION;
 
         for (Document document : campaignCollection.find()) {
-            campaignList.put(document.getString(Campaign.CAMPAIGN_ID), document);
+            campaignList.put(document.getString(CampaignParameter.CAMPAIGN_ID.getValue()), document);
         }
     }
 
-    public void insertDocument(Document document) {
-        String id = document.getString(Campaign.CAMPAIGN_ID);
+    public boolean insertDocument(Document document) {
+        if (document.containsKey(CampaignParameter.CAMPAIGN_ID.getValue())) {
+            document = CampaignUtils.validation(document);
+            String id = document.getString(CampaignParameter.CAMPAIGN_ID.getValue());
 
-        // add in cache
-        changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
-        campaignList.put(id, document);
-        changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
+            // add in cache
+            changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
+            campaignList.put(id, document);
 
-        // add in database
-        MongoController.AdFlex.CAMPAIGN_COLLECTION.insertOne(document);
+            changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
 
-        // remove in changes cache
-        changesList.remove(id);
+            // add in database
+            MongoController.AdFlex.CAMPAIGN_COLLECTION.insertOne(document);
+
+            // remove in changes cache
+            changesList.remove(id);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public JSONArray getListCampaign() {
