@@ -64,7 +64,7 @@ public class CampaignServiceTest extends JerseyTest {
         WebResource webResource = resource();
         ClientResponse response = webResource.path("campaign/1234")
                 .accept(MediaType.APPLICATION_JSON)
-                .post(ClientResponse.class);
+                .get(ClientResponse.class);
 
         System.out.println (response.getEntity(String.class));
         Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);

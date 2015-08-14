@@ -1,13 +1,8 @@
 package com.adflex.internship.service;
 
 import com.adflex.internship.cached.CacheHandler;
-import com.adflex.internship.dao.MongoController;
 import com.adflex.internship.resources.Campaign;
 import com.adflex.internship.result.ResponseController;
-import com.mongodb.Block;
-import com.mongodb.client.MongoCollection;
-
-import static com.mongodb.client.model.Filters.*;
 
 import org.bson.Document;
 import org.json.JSONArray;
@@ -47,7 +42,7 @@ public class CampaignService {
                 .build();
     }
 
-    @POST
+    @GET
     @Path("{" + Campaign.CAMPAIGN_ID + "}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCampaignById(@PathParam(Campaign.CAMPAIGN_ID) String id) {
