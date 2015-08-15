@@ -13,14 +13,11 @@ import java.util.Date;
 @Path("campaign")
 public class CampaignService {
     private CacheHandler cacheHandler;
-    private CacheControl cacheControl;
-    private Date lastDateChanges;
+    private String lastDateChanges;
 
     public CampaignService() {
         this.cacheHandler = CacheHandler.getInstance();
-        this.lastDateChanges = new Date();
-        this.cacheControl = new CacheControl();
-        this.cacheControl.setMaxAge(86400);
+        this.lastDateChanges = new Date().toString();
     }
 
     @POST
@@ -32,7 +29,7 @@ public class CampaignService {
         Boolean result = cacheHandler.insertDocument(document);
 
         if (result) {
-            lastDateChanges = new Date();
+            lastDateChanges = new Date().toString();
             return Response.status(ResponseController.ResponseCode.OK)
                     .entity(ResponseController.ResponseMessage.okMessage)
                     .build();
@@ -50,20 +47,20 @@ public class CampaignService {
         // Using ETAG to reduce bandwidth
         // Instead of hashing result, we hash the lastModified date
         // Reduce computation and bandwidth
-        EntityTag etag = new EntityTag(lastDateChanges.hashCode()+"");
-        Response.ResponseBuilder rb =request.evaluatePreconditions(lastDateChanges);
+        JSONArray jsonArray = cacheHandler.getListCampaign();
+
+        EntityTag etag = new EntityTag(jsonArray.toString().hashCode() + "");
+        Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
+        CacheControl cacheControl = new CacheControl();
+        cacheControl.setMaxAge(10);
 
         if (rb != null) {
             // the last modified is the same as result
             // tell browser use it cache
-            return rb.cacheControl(cacheControl).entity("The Same").build();
+            return rb.cacheControl(cacheControl).tag(etag).build();
 
         } else {
             // create new result
-            JSONArray jsonArray = cacheHandler.getListCampaign();
-            CacheControl cacheControl = new CacheControl();
-            cacheControl.setMaxAge(10);
-
             return Response.status(ResponseController.ResponseCode.OK)
                     .entity(jsonArray.toString())
                     .cacheControl(cacheControl)
@@ -89,7 +86,7 @@ public class CampaignService {
         if (rb != null) {
             // the result is the same
             // send the notification that use its cache
-            return rb.tag(etag).entity("The same").build();
+            return rb.tag(etag).build();
         }
 
         return Response.status(ResponseController.ResponseCode.OK)
