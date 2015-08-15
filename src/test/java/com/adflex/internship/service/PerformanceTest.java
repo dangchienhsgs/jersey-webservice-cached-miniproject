@@ -104,4 +104,57 @@ public class PerformanceTest extends JerseyTest {
             }
         }
     }
+
+    /***
+     * Test the caching by etag for getCampaignById
+     */
+    @Test
+    public void testGetCampaignListPerformance() {
+        WebResource webResource = resource();
+
+        // query that campaign for many times, etag value must be remained
+        String entityTag = null;
+        String responseValue = null;
+        for (int i = 0; i < 10; i++) {
+            ClientResponse response = webResource.path("campaign")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+
+            if (entityTag == null) {
+                entityTag = response.getEntityTag().getValue();
+            } else {
+                Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+            }
+
+            if (responseValue == null) {
+                responseValue = response.getEntity(String.class);
+            } else {
+                Assert.assertEquals(response.getEntity(String.class), responseValue);
+            }
+        }
+
+        // create an campaign with specific id
+        // after insert, the entity tag should be changed
+        String campaignId = UUID.randomUUID().toString();
+        BSONObject bsonObject = new BasicBSONObject()
+                .append(CampaignParameter.APP_KEY.getValue(), "appkey")
+                .append(CampaignParameter.BUDGET.getValue(), "asdsa")
+                .append(CampaignParameter.RETENTION_RATE.getValue(), 13)
+                .append(CampaignParameter.TOTAL_INSTALLED.getValue(), 24)
+                .append(CampaignParameter.CAMPAIGN_ID.getValue(), campaignId);
+
+
+        webResource.path("campaign/create")
+                .accept(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class, bsonObject.toString());
+
+
+        ClientResponse response = webResource.path("campaign")
+                .accept(MediaType.APPLICATION_JSON)
+                .get(ClientResponse.class);
+
+        // compare old result and new result, old etag and new etag
+        Assert.assertNotEquals(response.getEntity(String.class), responseValue);
+        Assert.assertNotEquals(response.getEntityTag().toString(), entityTag.toString());
+    }
 }
