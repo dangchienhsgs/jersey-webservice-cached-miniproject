@@ -4,8 +4,6 @@ package com.adflex.internship.resources;
 import org.bson.Document;
 import org.json.JSONObject;
 
-import java.util.Date;
-
 /**
  * Created by dangchienhsgs on 14/08/2015.
  */
@@ -38,17 +36,6 @@ public class CampaignUtils {
             }
         }
         return true;
-    }
-
-    public static void main(String args[]) throws InterruptedException{
-        Date date = new Date();
-
-        System.out.println(date.toString());
-
-        Thread.sleep(1000);
-
-        System.out.println(date.toString());
-
     }
 }
 
