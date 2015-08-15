@@ -8,8 +8,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.bson.Document;
 import org.json.JSONArray;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by dangchienhsgs on 13/08/2015.
@@ -22,8 +22,8 @@ public class CacheHandler {
     private static CacheHandler cacheHandler = null;
 
     private CacheHandler() {
-        campaignList = new HashMap<>();
-        changesList = new HashMap<>();
+        campaignList = new ConcurrentHashMap<>();
+        changesList = new ConcurrentHashMap<>();
     }
 
     public static CacheHandler getInstance() {
@@ -48,12 +48,13 @@ public class CacheHandler {
             document = CampaignUtils.validation(document);
             String id = document.getString(CampaignParameter.CAMPAIGN_ID.getValue());
 
+            // put the document into cache first
             changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.WAITING));
             campaignList.put(id, document);
             changesList.put(id, Pair.of(document, CacheConfiguration.CacheStatus.RELOAD));
 
+            // database later
             MongoController.AdFlex.CAMPAIGN_COLLECTION.insertOne(document);
-
             changesList.remove(id);
 
             return true;

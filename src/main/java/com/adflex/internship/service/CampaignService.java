@@ -63,18 +63,18 @@ public class CampaignService {
         // tell browser to use the cached result instead of sending it
         EntityTag etag = new EntityTag(result.hashCode() + "");
         Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
+        CacheControl cacheControl = new CacheControl();
+        cacheControl.setMaxAge(10);
 
         if (rb != null) {
             // the result is the same
             // send the notification that use its cache
-            return rb.cacheControl(cacheControl)
-                    .status(ResponseController.ResponseCode.OK).tag(etag).build();
+            return rb.tag(etag).build();
         }
 
-        return Response.status(ResponseController.ResponseCode.OK)
-                .tag(etag)
+        return Response.ok(result)
                 .cacheControl(cacheControl)
-                .entity(result)
+                .tag(etag)
                 .build();
     }
 }
