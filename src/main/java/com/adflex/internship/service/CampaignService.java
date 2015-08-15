@@ -8,16 +8,19 @@ import org.json.JSONException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.Date;
 
 @Path("campaign")
 public class CampaignService {
     private CacheHandler cacheHandler;
     private CacheControl cacheControl;
+    private Date lastDateChanges;
 
     public CampaignService() {
         this.cacheHandler = CacheHandler.getInstance();
+        this.lastDateChanges = new Date();
         this.cacheControl = new CacheControl();
-        cacheControl.setMaxAge(86400);
+        this.cacheControl.setMaxAge(86400);
     }
 
     @POST
@@ -29,6 +32,7 @@ public class CampaignService {
         Boolean result = cacheHandler.insertDocument(document);
 
         if (result) {
+            lastDateChanges = new Date();
             return Response.status(ResponseController.ResponseCode.OK)
                     .entity(ResponseController.ResponseMessage.okMessage)
                     .build();
@@ -43,11 +47,29 @@ public class CampaignService {
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCampaign(@Context Request request) {
-        JSONArray jsonArray = cacheHandler.getListCampaign();
+        // Using ETAG to reduce bandwidth
+        // Instead of hashing result, we hash the lastModified date
+        // Reduce computation and bandwidth
+        EntityTag etag = new EntityTag(lastDateChanges.hashCode()+"");
+        Response.ResponseBuilder rb =request.evaluatePreconditions(lastDateChanges);
 
-        return Response.status(ResponseController.ResponseCode.OK)
-                .entity(jsonArray.toString())
-                .build();
+        if (rb != null) {
+            // the last modified is the same as result
+            // tell browser use it cache
+            return rb.cacheControl(cacheControl).entity("The Same").build();
+
+        } else {
+            // create new result
+            JSONArray jsonArray = cacheHandler.getListCampaign();
+            CacheControl cacheControl = new CacheControl();
+            cacheControl.setMaxAge(10);
+
+            return Response.status(ResponseController.ResponseCode.OK)
+                    .entity(jsonArray.toString())
+                    .cacheControl(cacheControl)
+                    .tag(etag)
+                    .build();
+        }
     }
 
     @GET
@@ -67,10 +89,11 @@ public class CampaignService {
         if (rb != null) {
             // the result is the same
             // send the notification that use its cache
-            return rb.tag(etag).build();
+            return rb.tag(etag).entity("The same").build();
         }
 
-        return Response.ok(result)
+        return Response.status(ResponseController.ResponseCode.OK)
+                .entity(result)
                 .cacheControl(cacheControl)
                 .tag(etag)
                 .build();
