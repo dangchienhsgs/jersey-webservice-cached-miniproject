@@ -14,7 +14,6 @@ public class CampaignService {
     private CacheHandler cacheHandler;
     private CacheControl cacheControl;
 
-
     public CampaignService() {
         this.cacheHandler = CacheHandler.getInstance();
         this.cacheControl = new CacheControl();
@@ -45,7 +44,6 @@ public class CampaignService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response listCampaign(@Context Request request) {
         JSONArray jsonArray = cacheHandler.getListCampaign();
-
 
         return Response.status(ResponseController.ResponseCode.OK)
                 .entity(jsonArray.toString())
