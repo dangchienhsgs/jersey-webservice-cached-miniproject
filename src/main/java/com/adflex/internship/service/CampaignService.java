@@ -13,11 +13,10 @@ import java.util.Date;
 @Path("campaign")
 public class CampaignService {
     private CacheHandler cacheHandler;
-    private String lastDateChanges;
+    private static Date lastDateChanges = new Date();
 
     public CampaignService() {
         this.cacheHandler = CacheHandler.getInstance();
-        this.lastDateChanges = new Date().toString();
     }
 
     @POST
@@ -29,7 +28,7 @@ public class CampaignService {
         Boolean result = cacheHandler.insertDocument(document);
 
         if (result) {
-            lastDateChanges = new Date().toString();
+            lastDateChanges = new Date();
             return Response.status(ResponseController.ResponseCode.OK)
                     .entity(ResponseController.ResponseMessage.okMessage)
                     .build();
@@ -47,12 +46,11 @@ public class CampaignService {
         // Using ETAG to reduce bandwidth
         // Instead of hashing result, we hash the lastModified date
         // Reduce computation and bandwidth
-        JSONArray jsonArray = cacheHandler.getListCampaign();
-
-        EntityTag etag = new EntityTag(jsonArray.toString().hashCode() + "");
+        EntityTag etag = new EntityTag(lastDateChanges.hashCode() + "");
         Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
+
         CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(10);
+        cacheControl.setMaxAge(2);
 
         if (rb != null) {
             // the last modified is the same as result
@@ -61,6 +59,7 @@ public class CampaignService {
 
         } else {
             // create new result
+            JSONArray jsonArray = cacheHandler.getListCampaign();
             return Response.status(ResponseController.ResponseCode.OK)
                     .entity(jsonArray.toString())
                     .cacheControl(cacheControl)

@@ -48,7 +48,7 @@ public class CampaignUtils {
         Thread.sleep(1000);
 
         System.out.println(date.toString());
-         
+
     }
 }
 
