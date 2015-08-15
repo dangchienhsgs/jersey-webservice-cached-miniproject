@@ -27,9 +27,9 @@ public class PerformanceTest extends JerseyTest {
     }
 
     @Test
-    public void insertTest() {
+    public void testInsertPerformance() {
         WebResource webResource = resource();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println(i);
 
             BSONObject bsonObject = new BasicBSONObject()
@@ -46,6 +46,62 @@ public class PerformanceTest extends JerseyTest {
 
             Assert.assertEquals(response.getEntity(String.class), ResponseController.ResponseMessage.okMessage);
             Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+        }
+    }
+
+    @Test
+    public void testAllCampaign() {
+        WebResource webResource = resource();
+        for (int i = 0; i < 100; i++) {
+            ClientResponse response = webResource.path("campaign/")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+
+            Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+        }
+    }
+
+
+    /***
+     * Test the caching by etag for getCampaignById
+     */
+    @Test
+    public void testGetCampaignByIdPerformance() {
+        WebResource webResource = resource();
+
+        // create an campaign with specific id
+        String campaignId = UUID.randomUUID().toString();
+        BSONObject bsonObject = new BasicBSONObject()
+                .append(CampaignParameter.APP_KEY.getValue(), "appkey")
+                .append(CampaignParameter.BUDGET.getValue(), "asdsa")
+                .append(CampaignParameter.RETENTION_RATE.getValue(), 13)
+                .append(CampaignParameter.TOTAL_INSTALLED.getValue(), 24)
+                .append(CampaignParameter.CAMPAIGN_ID.getValue(), campaignId);
+
+
+        webResource.path("campaign/create")
+                .accept(MediaType.APPLICATION_JSON)
+                .post(ClientResponse.class, bsonObject.toString());
+
+        // query that campaign for many times, etag value must be remained
+        String entityTag = null;
+        String responseValue = null;
+        for (int i = 0; i < 100; i++) {
+            ClientResponse response = webResource.path("campaign/" + campaignId)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+
+            if (entityTag == null) {
+                entityTag = response.getEntityTag().getValue();
+            } else {
+                Assert.assertEquals(response.getStatus(), ResponseController.ResponseCode.OK);
+            }
+
+            if (responseValue == null) {
+                responseValue = response.getEntity(String.class);
+            } else {
+                Assert.assertEquals(response.getEntity(String.class), responseValue);
+            }
         }
     }
 }

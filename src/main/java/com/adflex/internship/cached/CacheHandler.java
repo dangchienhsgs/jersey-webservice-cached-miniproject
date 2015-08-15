@@ -22,7 +22,6 @@ public class CacheHandler {
     private static CacheHandler cacheHandler = null;
 
     private CacheHandler() {
-        // do nothing
         campaignList = new HashMap<>();
         changesList = new HashMap<>();
     }

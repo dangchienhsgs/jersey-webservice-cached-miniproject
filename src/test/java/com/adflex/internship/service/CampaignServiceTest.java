@@ -9,10 +9,10 @@ import com.sun.jersey.test.framework.JerseyTest;
 import com.sun.jersey.test.framework.WebAppDescriptor;
 import org.bson.BSONObject;
 import org.bson.BasicBSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
-import org.junit.Assert;
 
 /**
  * Created by dangchienhsgs on 12/08/2015.

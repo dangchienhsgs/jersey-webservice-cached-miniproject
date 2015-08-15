@@ -2,7 +2,6 @@ package com.adflex.internship.resources;
 
 
 import org.bson.Document;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -27,6 +26,16 @@ public class CampaignUtils {
         }
 
         return document;
+    }
+
+    public static boolean compare(Document document1, Document document2) {
+        for (CampaignParameter campaignParameter : CampaignParameter.values()) {
+            if (!String.valueOf(document1.get(campaignParameter))
+                    .equals(String.valueOf(document2.get(campaignParameter)))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

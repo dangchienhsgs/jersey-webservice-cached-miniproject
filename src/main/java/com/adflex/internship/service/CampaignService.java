@@ -2,21 +2,23 @@ package com.adflex.internship.service;
 
 import com.adflex.internship.cached.CacheHandler;
 import com.adflex.internship.result.ResponseController;
-
 import org.bson.Document;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 @Path("campaign")
 public class CampaignService {
     private CacheHandler cacheHandler;
+    private CacheControl cacheControl;
+
 
     public CampaignService() {
         this.cacheHandler = CacheHandler.getInstance();
+        this.cacheControl = new CacheControl();
+        cacheControl.setMaxAge(86400);
     }
 
     @POST
@@ -41,8 +43,10 @@ public class CampaignService {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCampaign() {
+    public Response listCampaign(@Context Request request) {
         JSONArray jsonArray = cacheHandler.getListCampaign();
+
+
         return Response.status(ResponseController.ResponseCode.OK)
                 .entity(jsonArray.toString())
                 .build();
@@ -51,11 +55,26 @@ public class CampaignService {
     @GET
     @Path("{campaignid}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCampaignById(@PathParam("campaignid") String id) {
-        JSONArray jsonArray = cacheHandler.getCampaignById(id);
+    public Response getCampaignById(@PathParam("campaignid") String id, @Context Request request) {
+        String result = cacheHandler.getCampaignById(id).toString();
+
+        // Using ETAG to reduce bandwidth
+        // if the result is same as cached result (hashcode is the same)
+        // tell browser to use the cached result instead of sending it
+        EntityTag etag = new EntityTag(result.hashCode() + "");
+        Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
+
+        if (rb != null) {
+            // the result is the same
+            // send the notification that use its cache
+            return rb.cacheControl(cacheControl)
+                    .status(ResponseController.ResponseCode.OK).tag(etag).build();
+        }
 
         return Response.status(ResponseController.ResponseCode.OK)
-                .entity(jsonArray.toString() + " | " + id)
+                .tag(etag)
+                .cacheControl(cacheControl)
+                .entity(result)
                 .build();
     }
 }
