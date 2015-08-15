@@ -13,6 +13,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 /**
  * Created by dangchienhsgs on 12/08/2015.
@@ -31,12 +32,13 @@ public class CampaignServiceTest extends JerseyTest {
     public void testInsertCampaign() {
         WebResource webResource = resource();
 
+        String id = UUID.randomUUID().toString();
         BSONObject bsonObject = new BasicBSONObject()
                 .append(CampaignParameter.APP_KEY.getValue(), "appkey")
                 .append(CampaignParameter.BUDGET.getValue(), "Asdsa")
                 .append(CampaignParameter.RETENTION_RATE.getValue(), 13)
                 .append(CampaignParameter.TOTAL_INSTALLED.getValue(), 24)
-                .append(CampaignParameter.CAMPAIGN_ID.getValue(), "12554");
+                .append(CampaignParameter.CAMPAIGN_ID.getValue(), id);
 
 
         ClientResponse response = webResource.path("campaign/create")
@@ -55,7 +57,6 @@ public class CampaignServiceTest extends JerseyTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .get(ClientResponse.class);
 
-        System.out.println ("List campaign: " + response.getEntity(String.class));
         String list1 = response.getEntity(String.class);
 
         response = webResource.path("campaign")
