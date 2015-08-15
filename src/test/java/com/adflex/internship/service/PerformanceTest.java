@@ -133,7 +133,7 @@ public class PerformanceTest extends JerseyTest {
             }
         }
 
-        // create an campaign with specific id
+        // create a campaign with specific id
         // after insert, the entity tag should be changed
         String campaignId = UUID.randomUUID().toString();
         BSONObject bsonObject = new BasicBSONObject()
