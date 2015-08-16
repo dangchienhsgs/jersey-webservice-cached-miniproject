@@ -45,6 +45,7 @@ public class CacheHandler {
 
     public boolean insertDocument(Document document) {
         if (document.containsKey(CampaignParameter.CAMPAIGN_ID.getValue())) {
+
             document = CampaignUtils.validation(document);
             String id = document.getString(CampaignParameter.CAMPAIGN_ID.getValue());
 
