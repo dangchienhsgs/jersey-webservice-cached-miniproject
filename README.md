@@ -18,6 +18,7 @@
     GET: /campaign/{campaign_id}
     data: None
     """
+    
 ## Các phương pháp cache được sử dụng:
 
 ### Cache lên memory
