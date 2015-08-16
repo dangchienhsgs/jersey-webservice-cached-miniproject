@@ -1,6 +1,6 @@
 package com.adflex.internship.service;
 
-import com.adflex.internship.cached.CacheHandler;
+import com.adflex.internship.cache.CacheHandler;
 import com.adflex.internship.result.ResponseController;
 import org.bson.Document;
 import org.json.JSONArray;
@@ -12,11 +12,11 @@ import java.util.Date;
 
 @Path("campaign")
 public class CampaignService {
-    private CacheHandler cacheHandler;
+    private static CacheHandler cacheHandler;
     private static Date lastDateChanges = new Date();
 
     public CampaignService() {
-        this.cacheHandler = CacheHandler.getInstance();
+        cacheHandler = CacheHandler.getInstance();
     }
 
     @POST

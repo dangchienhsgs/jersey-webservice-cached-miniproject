@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * Created by dangchienhsgs on 14/08/2015.
  */
-public class PerformanceTest extends JerseyTest {
+public class CacheLogicTest extends JerseyTest {
     @Override
     protected AppDescriptor configure() {
         // Define resources to test

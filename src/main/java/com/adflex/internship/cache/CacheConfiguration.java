@@ -1,4 +1,4 @@
-package com.adflex.internship.cached;
+package com.adflex.internship.cache;
 
 /**
  * Created by dangchienhsgs on 14/08/2015.

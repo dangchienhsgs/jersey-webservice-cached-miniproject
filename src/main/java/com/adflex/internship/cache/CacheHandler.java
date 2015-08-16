@@ -1,4 +1,4 @@
-package com.adflex.internship.cached;
+package com.adflex.internship.cache;
 
 import com.adflex.internship.dao.MongoController;
 import com.adflex.internship.resources.CampaignParameter;
@@ -8,7 +8,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.bson.Document;
 import org.json.JSONArray;
 
-import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
