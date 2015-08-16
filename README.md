@@ -5,20 +5,24 @@
   - Insert Campaign
     ```
     POST: /campaign
+
     data: {"campaign_id": "cuulong", "retention_rate":13, "app_key":"appkey", "total_installed":24}
+
     type: application/json
     ```
   - Query all Campaigns
     ```
     GET: /campaign
+
     data: None
     ```
   - Query all Campaigns By Id
     """
     GET: /campaign/{campaign_id}
+    
     data: None
     """
-    
+
 ## Các phương pháp cache được sử dụng:
 
 ### Cache lên memory
