@@ -28,7 +28,7 @@
 
 ### Lợi ích
 
-  - Với việc cache bằng http và sử dụng sự hỗ trợ của etag khiến server giảm thiểu bandwidth (thay vì send 1 giá trị cỡ vài KB thì chỉ send 1 giá trị cỡ vài bytes)
+  - Với việc cache bằng http và sử dụng sự hỗ trợ của etag khiến server giảm thiểu bandwidth (thay vì send 1 giá trị cỡ vài KB thì chỉ send 1 giá trị cỡ vài bytes), cùng với đó là giảm thiểu độ trễ trong việc query database
 
   - Với hành động **query all campaign** không hash toàn bộ kết quả rồi sử dụng etag như **query campaign by id** vì giá trị trả về thường rất lớn, việc hash sẽ tốn computation thay vì hash 1 giá trị bé là lastModifiedDate
 
