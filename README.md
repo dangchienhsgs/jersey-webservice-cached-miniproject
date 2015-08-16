@@ -18,29 +18,29 @@
 
 ### Cache bằng http
 
-  - Với action ***query all campaign***, sử dụng phương pháp so sánh **lastModifiedDate**. Tức là khi request gửi đến.
+  - Với action ***query all campaign***, sử dụng phương pháp so sánh ***lastModifiedDate***. Tức là khi request gửi đến.
   sẽ mang theo 1 tag có giá trị là ngày chỉnh sửa gần nhất tại client đã được hash và đặt trong 1 tag. Nếu giá trị này trùng với giá trị lưu tại server (Do đây là toàn bộ campaign nên chỉ có 1 giá trị như thế này), chỉ gửi một thông báo tới client là sử dụng kết quả cũ. Ngược lại thì gửi kết quả mới kèm etag là hashcode của thời gian lưu tại server.
 
-  - Với hành động insert một campaign, sẽ làm thay đổi giá trị lastModifiedDate tại server, ta cần update giá trị này mỗi lần insert.
+  - Với hành động insert một campaign, sẽ làm thay đổi giá trị ***lastModifiedDate*** tại server, ta cần update giá trị này mỗi lần insert.
 
-  - Với action "query campaign by id", ta sẽ lấy giá trị của campaign theo id nếu có 2 cache changeList và campaignList (changeList ưu tiên trước). Hash giá trị này và so sánh với etag của client gửi đến. Cách làm tương tự với hành động
-  "query all campaign".
+  - Với action ***query campaign by id***, ta sẽ lấy giá trị của campaign theo id nếu có 2 cache changeList và campaignList (changeList ưu tiên trước). Hash giá trị này và so sánh với etag của client gửi đến. Cách làm tương tự với hành động
+  ***query all campaign***.
 
 ### Lợi ích
 
   - Với việc cache bằng http và sử dụng sự hỗ trợ của etag khiến server giảm thiểu bandwidth (thay vì send 1 giá trị cỡ vài KB thì chỉ send 1 giá trị cỡ vài bytes)
 
-  - Với hành động "query all campaign" không hash toàn bộ kết quả rồi sử dụng etag như "query campaign by id" vì giá trị trả về thường rất lớn, việc hash sẽ tốn computation thay vì hash 1 giá trị bé là lastModifiedDate
+  - Với hành động ***query all campaign*** không hash toàn bộ kết quả rồi sử dụng etag như ***query campaign by id*** vì giá trị trả về thường rất lớn, việc hash sẽ tốn computation thay vì hash 1 giá trị bé là lastModifiedDate
 
-  - Với mỗi campaign trả về cũng không sử dụng hash kết quả như hành động "query all campaign" vì lưu lastModifiedDate cho mỗi campaign là không cần thiết và tốn bộ nhớ.
+  - Với mỗi campaign trả về cũng không sử dụng hash kết quả như hành động ***query all campaign*** vì lưu lastModifiedDate cho mỗi campaign là không cần thiết và tốn bộ nhớ.
 
 ### Phương pháp tránh xung đột
 
 Quá trình insert 1 campaign:
 
-  - Insert campaign đó vào changesList (đặt status là WAITING)
+  - Insert campaign đó vào changesList (đặt status là ***WAITING***)
 
-  - Insert campaign đó vào campaignList, sau quá trình này sửa lại status của campaign này trong changeList thành RELOAD
+  - Insert campaign đó vào campaignList, sau quá trình này sửa lại status của campaign này trong changeList thành ***RELOAD***
 
   - Insert campaign đó vào database, sau quá trình này xóa campaign này đi ở changeList.
 
