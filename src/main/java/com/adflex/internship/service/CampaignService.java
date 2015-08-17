@@ -50,7 +50,7 @@ public class CampaignService {
         Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
 
         CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(2);
+        cacheControl.setMaxAge(86400);
 
         if (rb != null) {
             // the last modified is the same as result
@@ -80,7 +80,7 @@ public class CampaignService {
         EntityTag etag = new EntityTag(result.hashCode() + "");
         Response.ResponseBuilder rb = request.evaluatePreconditions(etag);
         CacheControl cacheControl = new CacheControl();
-        cacheControl.setMaxAge(10);
+        cacheControl.setMaxAge(86400);
 
         if (rb != null) {
             // the result is the same
