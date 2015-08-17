@@ -6,7 +6,7 @@
     ```
     POST: /campaign
     data: {"campaign_id": "cuulong", "retention_rate":13, "app_key":"appkey", "total_installed":24}
-    type: application/json
+    Content-type: text/plain
     ```
 
   - Query all Campaigns
