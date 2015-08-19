@@ -20,10 +20,10 @@
 ### 1. Cơ chế 
 Ví dụ đơn giản: Adflex xây dựng Webservice cung cấp các resources như sau 
 ```
-    GET: /adflex/publisher/*     role: admin
-    GET: /adflex/publisher/{publisherid} role: publisher
-    GET: /adflex/advertiser/*    role: admin
-    GET: /adflex/advertiser/{advertiserid} role: publisher 
+    GET: /adflex/publisher/*                      role: admin
+    GET: /adflex/publisher/{publisherid}          role: publisher
+    GET: /adflex/advertiser/*                     role: admin
+    GET: /adflex/advertiser/{advertiserid}        role: advertiser
 ```
 Ta thiết kế webservice của ta như sau: Mỗi publisher hoặc advertiser khi đăng kí sử dụng API của AdFlex sẽ thực hiện các bước như sau: Đăng nhập adflex.vn, đăng kí dịch vụ sử dụng API, sau khi đăng kí sẽ nhận được 1 chuỗi token nào đó ví dụ:
     
