@@ -1,11 +1,11 @@
 # Bảo mật API cho WebService
 
 ## Sử dụng SecurityContext
-### Cơ chế 
+### 1. Cơ chế 
   - Server: Database lưu trữ cơ sở dữ liệu về người dùng (username, password, role). Khi client truy cập tài nguyên trên webservice sẽ gửi thông tin người dùng lên (username, password), server kiểm tra username và password có hợp lệ không và kiểm tra api hoặc resource client yêu cầu có được cho phép không thông qua role của nó. 
   - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về và role database user. Cấu hình vất vả nhưng sử dụng thì đơn giản (Dùng annotation)
   
-### Đặc điểm 
+### 2. Đặc điểm 
   - Điểm mạnh 
     + Cơ chế đơn giản
   - Điểm yếu 
@@ -15,7 +15,7 @@
 
 
 ## Sử dụng token 
-### Cơ chế 
+### 1. Cơ chế 
   - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token.
   - Người sử dụng webservice sẽ được nhận 1 token khi được nhà cung cấp dịch vụ webservice (Qúa trình nhận token này có thể thông qua đăng nhập hoặc nhiều phương thức khác nhau, có thể làm tự động)
   - Token cũng có thể tạo ra do người dùng sau khi đăng nhập và chọn 1 số role truy cập thông tin của chính họ rồi tạo token. Hoặc cũng có thể do nhà cung cấp dịch vụ webservice tự tạo. Ví dụ: Adflex cho mỗi partner 1 token mang id của partner đó và type của partner đó(publisher, advertieser,...).
@@ -26,7 +26,7 @@
   - Decode được token này lấy được thông tin về role. Qúa trình này thực chất giống qúa trình authorization.
   - Đặc biệt phù hợp với nguyên lý của webservice.
 
-### Đặc điểm
+### 2. Đặc điểm
   - Điểm mạnh:
     + Phù hợp với nhiều mô hình khác nhau.
     + Không phải lưu database authorization 
