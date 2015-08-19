@@ -39,11 +39,11 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
       "role": "publisher"
     }
 ```
-    Server có thể encode và decode chuỗi json này sử dụng 1 key riêng mà chỉ AdFlex mới biết, ví dụ "adflexewayadflexeway112233". Key này sẽ không ai biết ngoài đội hệ thống của AdFlex. 1 chuỗi json khi được encode bằng 1 key nào đó thì phải sử dụng key đó để decode.
+   Server có thể encode và decode chuỗi json này sử dụng 1 key riêng mà chỉ AdFlex mới biết, ví dụ "adflexewayadflexeway112233". Key này sẽ không ai biết ngoài đội hệ thống của AdFlex. 1 chuỗi json khi được encode bằng 1 key nào đó thì phải sử dụng key đó để decode.
   
-    Vậy hycongtu đã có chuỗi token của riêng mình. Token này được sử dụng bằng cách đặt trong header "Authorization" của request. Khi request gửi lên server, server sẽ lại sử dụng key ""adflexewayadflexeway112233" để convert token này thành chuỗi json ban đầu. Khi đó server sẽ biết được client là ai, client là kiểu khách hàng gì và có những quyền gì, từ đó sẽ quyết định xem API và resource mà client yêu cầu truy cập có trong thẩm quyền không.
+   Vậy hycongtu đã có chuỗi token của riêng mình. Token này được sử dụng bằng cách đặt trong header "Authorization" của request. Khi request gửi lên server, server sẽ lại sử dụng key ""adflexewayadflexeway112233" để convert token này thành chuỗi json ban đầu. Khi đó server sẽ biết được client là ai, client là kiểu khách hàng gì và có những quyền gì, từ đó sẽ quyết định xem API và resource mà client yêu cầu truy cập có trong thẩm quyền không.
     
-    Qua đây có thể thấy token có thể được sử dụng rất linh hoạt và có những đặc điểm sau đây:
+   Qua đây có thể thấy token có thể được sử dụng rất linh hoạt và có những đặc điểm sau đây:
     
 ### 2. Đặc điểm 
     
