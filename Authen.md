@@ -84,10 +84,11 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
 Simple java library, easy to use. Example:
 
 **Encode**: 
-    
 ```java
         // create key to encode
         Key key = new AesKey("adflexeway112233".getBytes());
+        
+        // create a token encryption
         JsonWebEncryption jwe = new JsonWebEncryption();
         
         // set json object we want to encode
