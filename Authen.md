@@ -112,12 +112,12 @@ Simple java library, easy to use. Example:
 **Decode**
 ```java
         // get token
-        String token = headers.getRequestHeader("Authorization").get(0);
+        String bearer = headers.getRequestHeader("Authorization").get(0);
         
         // we know this key before, right ?
-        Key key = new AesKey("chien1994@112233".getBytes());
+        Key key = new AesKey("adflexeway112233".getBytes());
         JsonWebEncryption jwe = new JsonWebEncryption();
-        jwe.setKey(new AesKey("chien1994@112233".getBytes()));
+        jwe.setKey(key);
         
         
         try{
