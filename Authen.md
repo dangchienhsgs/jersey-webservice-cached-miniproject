@@ -65,7 +65,7 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
  
   - Thậm chí, người sử dụng có thể tạo các token khác nhau mang những thẩm quyền khác nhau để sử dụng cho các ứng dụng khác nhau. Để bảo mật, token có thể đặt được thời gian sống. Sau thời gian sống này người dùng sẽ phải request 1 token mới.  
 
-### 2. Đặc điểm
+### 3. Đặc điểm
   - Điểm mạnh:
     + Phù hợp với nhiều mô hình khác nhau.
     + Không phải lưu trữ roles của người dùng trên database
@@ -78,7 +78,7 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
     + Hạn chế nhiều lần request database, tăng tốc độ xử lý.
   
   
-### 3. Mã hóa token sử dụng thuật Toán JWT. 
+### 4. Mã hóa token sử dụng thuật toán JWT. 
 
 **Wesite**: http://jwt.io/
 
