@@ -3,8 +3,8 @@
 ### Sử dụng SecurityContext
 1. Cơ chế 
   - Server: Database lưu trữ cơ sở dữ liệu về người dùng (username, password, role). Khi client truy cập tài nguyên trên webservice sẽ gửi thông tin người dùng lên (username, password), server kiểm tra username và password có hợp lệ không và kiểm tra api hoặc resource client yêu cầu có được cho phép không thông qua role của nó. 
-  - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về và role database user.
-
+  - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về và role database user. Cấu hình vất vả nhưng sử dụng thì đơn giản (Dùng annotation)
+  
 2. Đặc điểm 
   - Điểm mạnh 
     + Cơ chế đơn giản
