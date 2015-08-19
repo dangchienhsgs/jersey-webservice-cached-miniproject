@@ -17,8 +17,7 @@
 
 ## Sử dụng token 
 ### 1. Cơ chế 
-    Ví dụ đơn giản:
-    Webservice cung cấp các API như sau 
+Ví dụ đơn giản: Adflex xây dựng Webservice cung cấp các resources như sau 
 ```
     GET: /adflex/publisher/*     role: admin
     GET: /adflex/publisher/hycongtu  role: publisher
