@@ -123,6 +123,8 @@ Simple java library, easy to use. Example:
         try{
             // good token
             jwe.setCompactSerialization(bearer.split(" ")[1]);
+            
+            // return to client its token
             return Response.ok(jwe.getPayload()).build();
         } catch (JoseException e) {
             // not match => fraud token
