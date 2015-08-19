@@ -25,7 +25,7 @@
     GET: /adflex/advertiser/*    role: admin
     GET: /adflex/advertiser/bigkool role: publisher 
 ```
-    Ta thiết kế webservice của ta như sau: Mỗi publisher hoặc advertiser khi đăng kí sử dụng API của AdFlex sẽ thực hiện các bước như sau: Đăng nhập adflex.vn, đăng kí dịch vụ sử dụng API, sau khi đăng kí sẽ nhận được 1 chuỗi token nào đó ví dụ:
+   Ta thiết kế webservice của ta như sau: Mỗi publisher hoặc advertiser khi đăng kí sử dụng API của AdFlex sẽ thực hiện các bước như sau: Đăng nhập adflex.vn, đăng kí dịch vụ sử dụng API, sau khi đăng kí sẽ nhận được 1 chuỗi token nào đó ví dụ:
     
 ```
 eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1ImYyk5P3p0ecCF6o-Zd0WurYm3zQ.x4vQ6zgOBkKMq1XafQ4NRw.BlZYafA-VRrlgz__Fh2Xs1wFeaueVTkut8l8FzVcnQ7CXtnWfnuzypvUxJkhqbHw.KJVKwetSec51-QemtpNz9Q
