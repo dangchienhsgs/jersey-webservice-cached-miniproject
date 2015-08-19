@@ -1,10 +1,22 @@
-# Authentication 
+# Bảo mật API cho WebService
 
-1. Cách 1: Sử dụng database lưu định danh người dùng (username, password) cùng với type của người dùng (quyền truy cập khác nhau với mỗi type khác nhau)
-  - Khi yêu cầu truy cập tài nguyên trên webservice, client gửi định danh người dùng lên và yêu cầu truy cập
-  - Server check trong database và kiểm tra người dùng có định danh đã đúng chưa và type người dùng này có được quyền truy cập đó không
+## Sử dụng SecurityContext
+1. Cơ chế 
+  - Server: Database lưu trữ cơ sở dữ liệu về người dùng (username, password, role). Khi client truy cập tài nguyên trên webservice sẽ gửi thông tin người dùng lên (username, password), server kiểm tra username và password có hợp lệ không và kiểm tra api hoặc resource client yêu cầu có được cho phép không thông qua role của nó. 
+  - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về và role database user.
 
-2. Cách 2: Sử dụng token
+2. Đặc điểm 
+  - Điểm mạnh 
+    + Cơ chế đơn giản
+  - Điểm yếu 
+    + Không phù hợp với nhiều mô hình khác nhau (app, user, webservice,...)
+    + Phải gửi username và password lên (nguy hiểm, dễ bị cắp)
+    + Phải lưu trữ nhiều thứ trên cơ sở dữ liệu 
+
+
+## Sử dụng token 
+1. Cơ chế 
+  -
   - 1 token được mã hóa có thể mang thông tin về quyền truy cập, và token phải được mã hóa theo 1 key thì mới là token phù hợp => không thể generate bừa token được nếu không biết key này 
   - Nếu một người sở hữu 1 token do server cung cấp thì người đó có thể sử dụng token để truy cập tài nguyên trên webservice.
   - Client phải giữ bí mật token của mình 
