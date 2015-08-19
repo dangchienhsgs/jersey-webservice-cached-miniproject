@@ -1,6 +1,6 @@
 # Bảo mật API cho WebService
 
-## Sử dụng SecurityContext
+### Sử dụng SecurityContext
 1. Cơ chế 
   - Server: Database lưu trữ cơ sở dữ liệu về người dùng (username, password, role). Khi client truy cập tài nguyên trên webservice sẽ gửi thông tin người dùng lên (username, password), server kiểm tra username và password có hợp lệ không và kiểm tra api hoặc resource client yêu cầu có được cho phép không thông qua role của nó. 
   - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về và role database user.
@@ -14,7 +14,7 @@
     + Phải lưu trữ nhiều thứ trên cơ sở dữ liệu 
 
 
-## Sử dụng token 
+### Sử dụng token 
 1. Cơ chế 
   - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token.
   - Người sử dụng webservice sẽ được nhận 1 token khi được nhà cung cấp dịch vụ webservice (Qúa trình nhận token này có thể thông qua đăng nhập hoặc nhiều phương thức khác nhau, có thể làm tự động)
