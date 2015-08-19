@@ -17,6 +17,7 @@
   - Không phải query kiểm tra người dùng có trong database không 
   - Không phải query người dùng có những quyền hạn nào, token mang thông tin về quyền hạn 
   - Người dùng mang token thì không biết gì hơn ngoài token, (không biết gì về cơ chế authen của server)
+    (Người dùng có thể tạo token với quyền hạn nào đó rồi cung cấp cho bên thứ 3 : app, website, customer...)
   - Người dùng không phải send các parameter như username và password => an toàn 
   - Mỗi token chỉ có một số quyền hạn nhất định, khác với username và password nếu sở hữu 2 cái đó có thể có full quyền hạn
   
