@@ -47,7 +47,7 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
     
 ### 2. Token là gì
     
-  - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token. Trong trường hợp trên, AdFlex chọn key là "adflexewayadflexeway112233" và giữ thật bí mật key này. Một trong các cách mã hóa phổn biến nhất cho việc này là JWT(JSON Web Token) sẽ trình bày phần sau.
+  - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token. Trong trường hợp trên, AdFlex chọn key là "adflexewayadflexeway112233" và giữ thật bí mật key này. Một trong các cách mã hóa phổ biến cho việc này là JWT(JSON Web Token) sẽ trình bày phần sau.
 
   - Người sử dụng webservice sẽ được nhận 1 token khi đăng kí với nhà cung cấp dịch vụ webservice (Qúa trình nhận token này có thể thông qua đăng nhập hoặc nhiều phương thức khác nhau, có thể làm tự động).
   
