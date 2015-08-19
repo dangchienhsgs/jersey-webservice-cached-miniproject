@@ -13,6 +13,7 @@
     + Không phù hợp với nhiều mô hình khác nhau (app, user, webservice,...)
     + Phải gửi username và password lên (nguy hiểm, dễ bị cắp)
     + Phải lưu trữ nhiều thứ trên cơ sở dữ liệu 
+    + Qúa nhiều request => Qúa nhiều lần query database => Hệ thống bị break.
 
 
 ## Sử dụng token 
