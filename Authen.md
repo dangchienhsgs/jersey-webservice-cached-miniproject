@@ -126,7 +126,9 @@ Simple java library, easy to use. Example:
             return Response.ok(jwe.getPayload()).build();
         } catch (JoseException e) {
             // not match => fraud token
-            return Response.ok("Error parse").build();
+            return Response.status(302)
+                    .entity("Token fail")
+                    .build();
         }
 ```
   
