@@ -69,7 +69,7 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
     + Không phải lưu trữ roles của người dùng trên database
     + Không phải query kiểm tra người dùng có trong database không 
     + Không phải query người dùng có những quyền hạn nào, token mang thông tin về quyền hạn 
-    + Người dùng mang token thì không biết gì hơn ngoài token, (không biết gì về cơ chế authentication của server, hoặc biết cũng không có cách nào hack nếu không có key của server)
+    + Người dùng mang token thì không biết gì hơn ngoài token, (không biết token mang những thông tin gi,  không biết gì về cơ chế authentication của server, hoặc biết cũng không có cách nào hack nếu không có key của server)
     + Người dùng có thể tạo token với quyền hạn nào đó rồi cung cấp cho bên thứ 3 sử dụng hoặc sử dụng token cho những ứng dụng công ty tự build.
     + Người dùng không phải send các parameter như username và password => an toàn 
     + Mỗi token chỉ có một số quyền hạn nhất định, người dùng không phải qúa lo nếu bị đánh cắp token thay vì bị đánh cắp username, password.
