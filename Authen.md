@@ -45,7 +45,7 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
     
    Qua đây có thể thấy token có thể được sử dụng rất linh hoạt và có những đặc điểm sau đây:
     
-### 2. Đặc điểm 
+### 2. Token là gì
     
   - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token. Trong trường hợp trên, AdFlex chọn key là "adflexewayadflexeway112233" và giữ thật bí mật key này. Một trong các cách mã hóa phổn biến nhất cho việc này là JWT(JSON Web Token) sẽ trình bày phần sau.
 
@@ -78,10 +78,12 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
   
   
 ### 3. Mã hóa token sử dụng thuật Toán JWT. 
-    **Wesite**: http://jwt.io/
 
-    Ví dụ:
-    **Encode**: 
+**Wesite**: http://jwt.io/
+
+Simple java library, easy to use. Example:
+
+**Encode**: 
     
 ```java
         // create key to encode
