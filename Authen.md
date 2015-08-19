@@ -108,7 +108,7 @@ Simple java library, easy to use. Example:
                 .get(ClientResponse.class);
 ```
 
-    **Decode**
+**Decode**
 ```java
         // get token
         String token = headers.getRequestHeader("Authorization").get(0);
