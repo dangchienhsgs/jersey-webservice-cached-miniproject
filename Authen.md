@@ -35,8 +35,8 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
     
 ```json
     {
-      'id': "hycongtu',
-      'role': 'publisher'
+      "id": "hycongtu",
+      "role": "publisher"
     }
 ```
     Server có thể encode và decode chuỗi json này sử dụng 1 key riêng mà chỉ AdFlex mới biết, ví dụ "adflexewayadflexeway112233". Key này sẽ không ai biết ngoài đội hệ thống của AdFlex. 1 chuỗi json khi được encode bằng 1 key nào đó thì phải sử dụng key đó để decode.
