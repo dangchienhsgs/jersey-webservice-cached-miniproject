@@ -74,7 +74,8 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
     + Người dùng mang token thì không biết gì hơn ngoài token, (không biết gì về cơ chế authentication của server, hoặc biết cũng không có cách nào hack nếu không có key của server)
     + Người dùng có thể tạo token với quyền hạn nào đó rồi cung cấp cho bên thứ 3 : app, website, customer...
     + Người dùng không phải send các parameter như username và password => an toàn 
-    + Mỗi token chỉ có một số quyền hạn nhất định, khác với username và password nếu sở hữu 2 cái đó có thể có full quyền hạn
+    + Mỗi token chỉ có một số quyền hạn nhất định, người dùng không phải qúa lo nếu bị đánh cắp token thay vì bị đánh cắp username, password.
+    + Hạn chế nhiều lần request database, tăng tốc độ xử lý.
   
   
 ### 3. Mã hóa token sử dụng thuật Toán JWT. 
