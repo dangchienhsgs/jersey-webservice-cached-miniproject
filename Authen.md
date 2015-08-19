@@ -35,7 +35,7 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
     
 ```json
     {
-      '_id': "hycongtu',
+      'id': "hycongtu',
       'role': 'publisher'
     }
 ```
