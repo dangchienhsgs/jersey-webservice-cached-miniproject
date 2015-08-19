@@ -60,8 +60,6 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
   - Thực chất khi 1 token gửi lên, server decode nó theo key chỉ server xác định từ trước. Nếu không decode được tức token này là token giả mạo. Qúa trình này thực chất giống qúa trình authentication.
    
   - Decode được token này lấy được thông tin về role. Qúa trình này thực chất giống qúa trình authorization.
-  
-  - Đặc biệt phù hợp với nguyên lý của webservice (No user).
  
   - Thậm chí, người sử dụng có thể tạo các token khác nhau mang những thẩm quyền khác nhau để sử dụng cho các ứng dụng khác nhau. Để bảo mật, token có thể đặt được thời gian sống. Sau thời gian sống này người dùng sẽ phải request 1 token mới.  
 
