@@ -2,7 +2,7 @@
 
 1. Cách 1: Sử dụng database lưu định danh người dùng (username, password) cùng với type của người dùng (quyền truy cập khác nhau với mỗi type khác nhau)
   - Khi yêu cầu truy cập tài nguyên trên webservice, client gửi định danh người dùng lên và yêu cầu truy cập
-  - Server check trong database và kiểm tra type người dùng này có được quyền truy cập đó không
+  - Server check trong database và kiểm tra người dùng có định danh đã đúng chưa và type người dùng này có được quyền truy cập đó không
 
 2. Cách 2: Sử dụng token
   - 1 token được mã hóa có thể mang thông tin về quyền truy cập, và token phải được mã hóa theo 1 key thì mới là token phù hợp => không thể generate bừa token được nếu không biết key này 
