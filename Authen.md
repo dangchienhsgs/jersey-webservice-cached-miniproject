@@ -77,7 +77,7 @@ eyJhbGciOiJBMTI4S1ciLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0.qlLiOYvX_fT6-JX0rk0vBzzBQ1Im
     + Mỗi token chỉ có một số quyền hạn nhất định, khác với username và password nếu sở hữu 2 cái đó có thể có full quyền hạn
   
   
-    3. Mã hóa token sử dụng thuật Toán JWT. 
+### 3. Mã hóa token sử dụng thuật Toán JWT. 
     **Wesite**: http://jwt.io/
 
     Ví dụ:
