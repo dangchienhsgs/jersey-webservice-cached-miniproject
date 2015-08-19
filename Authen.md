@@ -9,7 +9,7 @@
   - Nếu một người sở hữu 1 token do server cung cấp thì người đó có thể sử dụng token để truy cập tài nguyên trên webservice.
   - Client phải giữ bí mật token của mình 
   - Khi client gửi request lên thì chỉ cần gửi token, token phù hợp => đã qua được authen 
-    Bọc token ra để được scope (quyền truy cập) => đã biết đc authorization 
+    Bóc token ra để được scope (quyền truy cập) => đã biết đc authorization 
   
   Lợi ích 
   - Không phải lưu database authorization 
