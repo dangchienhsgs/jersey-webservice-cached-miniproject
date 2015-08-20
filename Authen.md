@@ -39,15 +39,15 @@ Token này thực ra kết qủa của việc encode 1 chuỗi JSON dạng như 
       "role": "publisher"
     }
 ```
-   Server có thể encode và decode chuỗi json này sử dụng 1 key riêng mà chỉ AdFlex mới biết, ví dụ "adflexewayadflexeway112233". Key này sẽ không ai biết ngoài đội hệ thống của AdFlex. 1 chuỗi json khi được encode bằng 1 key nào đó thì phải sử dụng key đó để decode.
+   Server có thể encode và decode chuỗi json này sử dụng 1 key riêng mà chỉ AdFlex mới biết, ví dụ "adflexeway112233". Key này sẽ không ai biết ngoài đội hệ thống của AdFlex. 1 chuỗi json khi được encode bằng 1 key nào đó thì phải sử dụng key đó để decode.
   
-   Vậy hycongtu đã có chuỗi token của riêng mình. Token này được sử dụng bằng cách đặt trong header "Authorization" của request. Khi request gửi lên server, server sẽ lại sử dụng key ""adflexewayadflexeway112233" để convert token này thành chuỗi json ban đầu. Khi đó server sẽ biết được client là ai, client là kiểu khách hàng gì và có những quyền gì, từ đó sẽ quyết định xem API và resource mà client yêu cầu truy cập có trong thẩm quyền không.
+   Vậy hycongtu đã có chuỗi token của riêng mình. Token này được sử dụng bằng cách đặt trong header "Authorization" của request. Khi request gửi lên server, server sẽ lại sử dụng key ""adflexeway112233" để convert token này thành chuỗi json ban đầu. Khi đó server sẽ biết được client là ai, client là kiểu khách hàng gì và có những quyền gì, từ đó sẽ quyết định xem API và resource mà client yêu cầu truy cập có trong thẩm quyền không.
     
    Qua đây có thể thấy token có thể được sử dụng rất linh hoạt và có những đặc điểm sau đây:
     
 ### 2. Token là gì
     
-  - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token. Trong trường hợp trên, AdFlex chọn key là "adflexewayadflexeway112233" và giữ thật bí mật key này. Một trong các cách mã hóa phổ biến cho việc này là JWT(JSON Web Token) sẽ trình bày phần sau.
+  - Token là 1 chuỗi mang thông tin được encode theo 1 paraphase nào đó mà người tạo ra nó chọn. Chỉ ai nắm giữ cách mã hóa và paraphase này mới có thể decode được token. Trong trường hợp trên, AdFlex chọn key là "adflexeway112233" và giữ thật bí mật key này. Một trong các cách mã hóa phổ biến cho việc này là JWT(JSON Web Token) sẽ trình bày phần sau.
 
   - Người sử dụng webservice sẽ được nhận 1 token khi đăng kí với nhà cung cấp dịch vụ webservice (Qúa trình nhận token này có thể thông qua đăng nhập hoặc nhiều phương thức khác nhau, có thể làm tự động).
   
