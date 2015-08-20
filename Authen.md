@@ -1,6 +1,6 @@
 # Bảo mật API cho WebService
 
-## Sử dụng Database thông thường
+## I. Sử dụng Database thông thường
 ### 1. Cơ chế 
   - Server: Database lưu trữ cơ sở dữ liệu về người dùng (username, password, role). Khi client truy cập tài nguyên trên webservice sẽ gửi thông tin người dùng lên (username, password), server kiểm tra username và password có hợp lệ không và kiểm tra api hoặc resource client yêu cầu có được cho phép không thông qua role của nó. 
   - Khi implement có thể tự làm hoặc cấu hình cho webserver (mỗi webserver có một cách cấu hình khác nhau), nhưng vẫn là lưu cơ sở dữ liệu về users và role database user. Cấu hình vất vả nhưng sử dụng thì đơn giản (Dùng annotation)
@@ -16,7 +16,7 @@
     + Qúa nhiều request => Qúa nhiều lần query database => Hệ thống bị break.
 
 
-## Sử dụng token 
+## II. Sử dụng token 
 ### 1. Cơ chế 
 Ví dụ đơn giản: Adflex xây dựng Webservice cung cấp các resources như sau 
 ```
