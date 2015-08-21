@@ -69,7 +69,7 @@ public class CacheHandler {
         for (Document document : campaignList.values()) {
             jsonArray.put(document);
         }
-
+        
         changesList.forEach((id, pair) -> {
             if (pair.getValue() == CacheConfiguration.CacheStatus.WAITING) {
                 jsonArray.put(pair.getKey());

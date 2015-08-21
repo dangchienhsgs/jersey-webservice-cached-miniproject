@@ -26,4 +26,6 @@ dependencies {
     compile 'com.sun.jersey:jersey-servlet:1.17.1'
     compile 'org.mongodb:mongo-java-driver:3.0.3'
     compile 'net.sf.ehcache:ehcache:2.10.0'
+    compile 'org.bitbucket.b_c:jose4j:0.4.4'
+    compile 'mysql:mysql-connector-java:5.1.36'
 }

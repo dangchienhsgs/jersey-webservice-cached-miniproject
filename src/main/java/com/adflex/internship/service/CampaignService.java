@@ -2,12 +2,18 @@ package com.adflex.internship.service;
 
 import com.adflex.internship.cache.CacheHandler;
 import com.adflex.internship.result.ResponseController;
+import com.sun.jersey.api.core.HttpRequestContext;
+import com.sun.jersey.api.core.ResourceConfig;
 import org.bson.Document;
+import org.jose4j.jwe.JsonWebEncryption;
+import org.jose4j.keys.AesKey;
+import org.jose4j.lang.JoseException;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.security.Key;
 import java.util.Date;
 
 @Path("campaign")
@@ -17,6 +23,30 @@ public class CampaignService {
 
     public CampaignService() {
         cacheHandler = CacheHandler.getInstance();
+    }
+
+    @GET
+    @Path("/testdb")
+    public Response testAuthenByDatabase(@Context SecurityContext securityContext) {
+        return Response.ok("User is allowed").build();
+    }
+
+    @GET
+    @Path("/test")
+    public Response testAuthentication(@Context HttpHeaders headers) {
+        String bearer = headers.getRequestHeader("Authorization").get(0);
+        JsonWebEncryption jwe = new JsonWebEncryption();
+        jwe.setKey(new AesKey("chien1994@112233".getBytes()));
+
+        try{
+            jwe.setCompactSerialization(bearer.split(" ")[1]);
+            System.out.println (jwe.getPayload());
+            return Response.ok(jwe.getPayload()).build();
+        } catch (JoseException e) {
+            return Response.status(302)
+                    .entity("Token fail")
+                    .build();
+        }
     }
 
     @POST
